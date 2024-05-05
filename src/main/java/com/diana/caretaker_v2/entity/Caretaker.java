@@ -3,24 +3,30 @@ package com.diana.caretaker_v2.entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Caretaker{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String nome;
+    private String name;
     private String email;
-    private LocalDate dateCreated;
+    private Date dateCreated;
 
+    @OneToMany(mappedBy = "caretaker")
+    private List<Child> children;
+
+    //private Date date = Date.valueOf(LocalDate.now());
     public Caretaker() {
     }
 
-    public Caretaker(String nome, String email) {
-        this.nome = nome;
+    public Caretaker(String name, String email) {
+        this.name = name;
         this.email = email;
-        this.dateCreated = LocalDate.now();
+        this.dateCreated = Date.valueOf(LocalDate.now());
     }
 
     public int getId() {
@@ -31,12 +37,12 @@ public class Caretaker{
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -47,11 +53,19 @@ public class Caretaker{
         this.email = email;
     }
 
-    public LocalDate getDateCreated() {
+    public Date getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(LocalDate dateCreated) {
+    public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public List<Child> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Child> children) {
+        this.children = children;
     }
 }

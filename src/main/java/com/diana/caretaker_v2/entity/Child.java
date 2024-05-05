@@ -1,8 +1,10 @@
 package com.diana.caretaker_v2.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 public class Child {
@@ -10,7 +12,11 @@ public class Child {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    private LocalDate birthdate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+    @Column(name = "birthdate")
+    private Date birthdate;
+
     private String bloodtype;
 
     @ManyToOne
@@ -20,7 +26,14 @@ public class Child {
     public Child() {
     }
 
-    public Child(String name, LocalDate birthdate, String bloodtype, Caretaker caretaker) {
+    public Child(int id, String name, Date birthdate, String bloodtype) {
+        this.id = id;
+        this.name = name;
+        this.birthdate = birthdate;
+        this.bloodtype = bloodtype;
+    }
+
+    public Child(String name, Date birthdate, String bloodtype, Caretaker caretaker) {
         this.name = name;
         this.birthdate = birthdate;
         this.bloodtype = bloodtype;
@@ -43,11 +56,11 @@ public class Child {
         this.name = name;
     }
 
-    public LocalDate getBirthdate() {
+    public Date getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(LocalDate birthdate) {
+    public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
 
