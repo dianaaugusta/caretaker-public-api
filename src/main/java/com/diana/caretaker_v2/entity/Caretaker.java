@@ -1,5 +1,6 @@
 package com.diana.caretaker_v2.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -12,11 +13,12 @@ public class Caretaker{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
+    private String nameCaretaker;
     private String email;
     private Date dateCreated;
 
     @OneToMany(mappedBy = "caretaker")
+    @JsonIgnore
     private List<Child> children;
 
     //private Date date = Date.valueOf(LocalDate.now());
@@ -24,7 +26,7 @@ public class Caretaker{
     }
 
     public Caretaker(String name, String email) {
-        this.name = name;
+        this.nameCaretaker = name;
         this.email = email;
         this.dateCreated = Date.valueOf(LocalDate.now());
     }
@@ -37,12 +39,12 @@ public class Caretaker{
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNameCaretaker() {
+        return nameCaretaker;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNameCaretaker(String nameCaretaker) {
+        this.nameCaretaker = nameCaretaker;
     }
 
     public String getEmail() {

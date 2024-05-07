@@ -3,15 +3,15 @@ package com.diana.caretaker_v2.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class Child {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
+    private String nameChild;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     @Column(name = "birthdate")
@@ -23,18 +23,27 @@ public class Child {
     @JoinColumn(name = "caretaker_id")
     private Caretaker caretaker;
 
+    @ManyToMany
+    @JoinTable(
+            name = "child_allergies",
+            joinColumns = @JoinColumn(name = "child_id"),
+            inverseJoinColumns = @JoinColumn(name = "allergy_id")
+    )
+    private Set<Allergies> allergies;
+
+
     public Child() {
     }
 
     public Child(int id, String name, Date birthdate, String bloodtype) {
         this.id = id;
-        this.name = name;
+        this.nameChild = name;
         this.birthdate = birthdate;
         this.bloodtype = bloodtype;
     }
 
     public Child(String name, Date birthdate, String bloodtype, Caretaker caretaker) {
-        this.name = name;
+        this.nameChild = name;
         this.birthdate = birthdate;
         this.bloodtype = bloodtype;
         this.caretaker = caretaker;
@@ -48,12 +57,12 @@ public class Child {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNameChild() {
+        return nameChild;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNameChild(String nameChild) {
+        this.nameChild = nameChild;
     }
 
     public Date getBirthdate() {

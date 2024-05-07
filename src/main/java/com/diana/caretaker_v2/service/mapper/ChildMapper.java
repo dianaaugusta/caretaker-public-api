@@ -14,7 +14,7 @@ public class ChildMapper {
     public List<ChildDTO> mapToChildNameDTO(List<Child> children) {
         List<ChildDTO> dtos = new ArrayList<>();
         for (Child child : children) {
-            dtos.add(new ChildDTO(child.getName(), child.getBirthdate()));
+            dtos.add(new ChildDTO(child.getNameChild(), child.getBirthdate()));
         }
         return dtos;
     }

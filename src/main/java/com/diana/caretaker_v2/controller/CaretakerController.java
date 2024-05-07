@@ -1,9 +1,11 @@
 package com.diana.caretaker_v2.controller;
 
+import com.diana.caretaker_v2.CaretakerV2Application;
 import com.diana.caretaker_v2.entity.Caretaker;
 import com.diana.caretaker_v2.entity.Child;
 import com.diana.caretaker_v2.repository.CaretakerRepository;
 import com.diana.caretaker_v2.service.CaretakerService;
+import com.diana.caretaker_v2.service.response.CaretakerDTO;
 import com.diana.caretaker_v2.service.response.ChildDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,11 @@ public class CaretakerController {
 
     @Autowired
     private CaretakerService caretakerService;
+
+    @GetMapping()
+    public ResponseEntity<List<CaretakerDTO>> getAllCaretakersDTO() {
+        return ResponseEntity.ok().body(caretakerService.getAllCaretakersDTO());
+    }
 
 
     @PostMapping()
